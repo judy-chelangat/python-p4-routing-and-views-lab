@@ -16,28 +16,25 @@ def print_string(string):
 
 @app.route('/count/<int:number>')
 def count(number):
-    numbers = '\n'.join(str(i) for i in range(number + 1))
+    numbers = '\n'.join(str(i) for i in range(number))
     return numbers
 
 
-@app.route('/math/<float:num1><operation><float:num2>')
+@app.route('/math/<int:num1>/<operation>/<int:num2>')
 def math(num1, operation, num2):
-    result = None
     if operation == '+':
         result = num1 + num2
     elif operation == '-':
         result = num1 - num2
     elif operation == '*':
         result = num1 * num2
-    elif operation == '/':
+    elif operation == 'div':
         result = num1 / num2
     elif operation == '%':
         result = num1 % num2
-
-    if result is not None:
-        return f'Result: {num1} {operation} {num2} = {result}'
     else:
         return 'Invalid operation'
+    return str(result)
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
 
